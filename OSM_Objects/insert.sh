@@ -17,7 +17,7 @@ psql -d $DB -c "\\copy \"ways\" from '$REPDIR/ways.pgcopy'"
 psql -d $DB -c "\\copy \"relations\" from '$REPDIR/relations.pgcopy'"
 psql -d $DB -c "\\copy \"users\" from '$REPDIR/users.pgcopy'"
 echo "Starting $REPDIR/osm_pg_db_clipper.py"
-python3 $REPDIR/osm_pg_db_clipper.py -d $DB -b $REPDIR/borders.geojson
+python $REPDIR/osm_pg_db_clipper.py -d $DB -b $REPDIR/borders.geojson
 echo "Deleting changefiles in $REPDIR/"
 rm $REPDIR/changes.osm.gz
 rm $REPDIR/ways.*
