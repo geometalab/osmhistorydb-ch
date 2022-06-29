@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  db:
+    image: bitnami/postgresql:14.4.0
+    environment: &env
+      ? POSTGRESQL_USERNAME=hdb
+      ? POSTGRESQL_PASSWORD=change.in-prod
+      ? POSTGRESQL_DATABASE=history-db
+      ? POSTGRESQL_POSTGRES_PASSWORD=postgres.superuser-password=value
+  importer:
+    image: geometalab/history-db-updater
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - replication-cache:/var/cache/osmhistory-replication
+    environment:
+      <<: *env
+      ? POSTGRESQL_HOST=db
+volumes:
+  replication-cache: null

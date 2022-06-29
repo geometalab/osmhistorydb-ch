@@ -14,11 +14,10 @@ The code written for this project is openly available on this repo - but it's cu
 
 Dependencies (most surely incomplete :-O):
 - [ope](https://github.com/osmcode/osm-postgresql-experiments/)
-- [changesetmd](https://github.com/ToeBee/ChangesetMD)
+- ~~[changesetmd](https://github.com/ToeBee/ChangesetMD)~~ until python 3 suport is merged, use [geometalab/changesetmd](https://github.com/geometalab/ChangesetMD/tree/py3-and-docker)
 - Python 3
-- Python 2
 - PostgreSQL
-- shell scripts 
+- shell scripts
 - cron jobs
 - (Debian OS)
 
@@ -33,7 +32,7 @@ Dependencies (most surely incomplete :-O):
    2. `git clone https://github.com/ToeBee/ChangesetMD`
    3. `pip2 install psycopg2 lxml bz2file pyosmium`
    4. Download [changesets](https://planet.osm.org/planet/changesets-latest.osm.bz2)
-   6. `python2 changesetmd.py -d {DB} -c -g -f {changesets-?.osm.bz2}`
+   6. `python changesetmd.py -d {DB} -c -g -f {changesets-?.osm.bz2}`
    7. `psql -U {user} -d {DB}`
    8. `update osm_changeset_state set last_sequence = {SEQUENCE};` (See https://github.com/ToeBee/ChangesetMD#replication)
 3. Setup OPE
@@ -54,13 +53,10 @@ Dependencies (most surely incomplete :-O):
    4. `psql -U {user} -d {DB} -f ways.sql`
    5. `psql -U {user} -d {DB} -f nodes.sql`
    6. `psql -U {user} -d {DB} -f osmhistorydb-ch/OSM_Objects/db_setup.sql`
-   7. `python3 osmhistorydb-ch/OSM_Objects/osm_pg_db_clipper.py -d {DB} -b osmhistorydb-ch/OSM_Objects/borders.geojson -f {switzerland-internal.osh.pbf}`
+   7. `python osmhistorydb-ch/OSM_Objects/osm_pg_db_clipper.py -d {DB} -b osmhistorydb-ch/OSM_Objects/borders.geojson -f {switzerland-internal.osh.pbf}`
 6. Cronjob
    1. Create cache directory: `mkdir /var/cache/osmhistory-replication`
-   2. `*/10 * * * * bash cd {osmhistorydb-ch}/OSM_Objects/ && ./insert_expanded.sh` 
-
-
-
+   2. `*/10 * * * * bash cd {osmhistorydb-ch}/OSM_Objects/ && ./insert_expanded.sh`
 
 ## License
 
@@ -68,7 +64,6 @@ Copyright (C) 2021 (tbd.)
 
 Those programs and scripts published in this repository are available under the [ISC license](https://en.wikipedia.org/wiki/ISC_license) (see the file LICENSE.txt). 
 Existing programs and libraries have their own license which may be different from this one.
-
 
 ## Authors and Contact
 
